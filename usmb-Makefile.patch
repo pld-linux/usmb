@@ -1,0 +1,35 @@
+--- usmb-20080421/Makefile.orig	2008-05-23 04:22:54.661485523 +0200
++++ usmb-20080421/Makefile	2008-05-23 04:24:10.049637603 +0200
+@@ -14,19 +14,17 @@
+ # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ 
+ 
+-SAMBA = /opt/samba
+ CC = gcc
+ INSTALL = install
+ 
+ PREFIX = /usr/local
+ BINDIR = $(PREFIX)/bin
+ 
+-CFLAGS += -Wall -Wextra -Werror -std=c99 -pedantic -O \
+-          -I$(SAMBA)/include -D_BSD_SOURCE -DFUSE_USE_VERSION=26 \
++CFLAGS += -Wall -Werror -std=c99 -pedantic -O \
++          -I/usr/include/libxml2 -D_BSD_SOURCE -DFUSE_USE_VERSION=26 \
+           -DHAVE_UTIME_H
+ 
+ LDLIBS = -lsmbclient
+-LDFLAGS = -L$(SAMBA)/lib
+ 
+ PACKAGES = glib-2.0 libxml-2.0 fuse
+ 
+@@ -67,8 +65,8 @@
+ 
+ install-strip: STRIPFLAGS = -s
+ install install-strip: $(PROGRAM)
+-	mkdir -p $(BINDIR)
+-	$(INSTALL) -m 755 $(STRIPFLAGS) $(PROGRAM) $(BINDIR)/
++	mkdir -p "$(DESTDIR)$(BINDIR)"
++	$(INSTALL) -m 755 $(STRIPFLAGS) $(PROGRAM) "$(DESTDIR)$(BINDIR)"/
+ 
+ 
+ uninstall:
